@@ -11,7 +11,6 @@ class SearchForm extends React.Component {
       subreddit: '',
       threads: '',
     };
-
     this.handleChangeSubreddit = this.handleChangeSubreddit.bind(this);
     this.handleChangeNumber = this.handleChangeNumber.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -76,8 +75,8 @@ class SearchResultList extends React.Component {
             { this.props.results.map((item, index) => {
               return (
                 <li key={index}>
-                  <a href={item.data.url}>{item.data.url}</a>
                   <p>{item.data.title}</p>
+                  <a href={item.data.url}>{item.data.url}</a>
                 </li>
               );
             })}
@@ -97,7 +96,6 @@ class SearchResultList extends React.Component {
     );
   }
 }
-
 
 class App extends React.Component {
   constructor(props) {
