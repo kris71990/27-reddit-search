@@ -6,11 +6,11 @@ import './style/main.scss';
 
 class SearchForm extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       subreddit: '',
       threads: '',
-    }
+    };
 
     this.handleChangeSubreddit = this.handleChangeSubreddit.bind(this);
     this.handleChangeNumber = this.handleChangeNumber.bind(this);
@@ -19,14 +19,14 @@ class SearchForm extends React.Component {
 
   handleChangeSubreddit(e) {
     this.setState({
-      subreddit: e.target.value
-    })
+      subreddit: e.target.value,
+    });
   }
 
   handleChangeNumber(e) {
     this.setState({
-      threads: e.target.value
-    })
+      threads: e.target.value,
+    });
   }
 
   handleSubmit(e) {
@@ -37,9 +37,8 @@ class SearchForm extends React.Component {
         this.props.subredditSelect(response, this.state.subreddit, this.state.threads);
       })
       .catch((error) => {
-        console.error;
         this.props.subredditSelect(error, this.state.subreddit, this.state.threads);
-      })
+      });
   }
 
   render() {
@@ -66,10 +65,6 @@ class SearchForm extends React.Component {
 }
 
 class SearchResultList extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     return (
       <div>
@@ -82,7 +77,7 @@ class SearchResultList extends React.Component {
                 <a href={item.data.url}>{item.data.url}</a>
                 <p>{item.data.title}</p>
               </li>
-            )
+            );
           })}
         </ul>
       : undefined
@@ -90,7 +85,7 @@ class SearchResultList extends React.Component {
       {
       this.props.subredditError ?
         <div>
-          <h2>Error {this.props.subredditError} not found, try another subreddit</h2>
+          <h2>Error - r/{this.props.subredditError} not found, try another subreddit.</h2>
         </div>
         :
         undefined
@@ -103,13 +98,13 @@ class SearchResultList extends React.Component {
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       subredditSelected: null,
       results: null,
       threadCount: null,
       subredditError: null,
-    }
+    };
     this.subredditSelect = this.subredditSelect.bind(this);
   }
 
@@ -127,7 +122,7 @@ class App extends React.Component {
         threadCount: thread,
         results: response.body.data.children,
         subredditError: null,
-      })
+      });
     }
   }
 
@@ -140,7 +135,7 @@ class App extends React.Component {
           />
         <h3>Results</h3>
         <SearchResultList 
-          results={this.state.results} subredditError={this.state.subredditError}
+          results={this.state.results} subredditError={this.state.subredditSelected}
         />
       </section>
     );
