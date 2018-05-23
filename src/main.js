@@ -34,9 +34,12 @@ class SearchForm extends React.Component {
 
     return superagent.get(`https://www.reddit.com/r/${this.state.subreddit}.json?limit=${this.state.threads}`)
       .then((response) => {
-        this.props.subredditSelect(response.body, this.state.subreddit, this.state.threads);
+        this.props.subredditSelect(response, this.state.subreddit, this.state.threads);
       })
-      .catch(console.error);
+      .catch((error) => {
+        console.error;
+        this.props.subredditSelect(error, this.state.subreddit, this.state.threads);
+      })
   }
 
   render() {
@@ -87,7 +90,7 @@ class SearchResultList extends React.Component {
       {
       this.props.subredditError ?
         <div>
-          <h2>Error, no results</h2>
+          <h2>Error {this.props.subredditError} not found, try another subreddit</h2>
         </div>
         :
         undefined
@@ -111,18 +114,21 @@ class App extends React.Component {
   }
 
   subredditSelect(response, subreddit, thread) {
-    if (!response) {
+    if (!response.body) {
       this.setState({
         subredditError: true,
+        subredditSelected: subreddit,
+        results: null,
+        threadCount: thread,
       });
-    };
-
-    this.setState({
-      subredditSelected: subreddit,
-      threadCount: thread,
-      results: response.data.children,
-      subredditError: null,
-    })
+    } else {
+      this.setState({
+        subredditSelected: subreddit,
+        threadCount: thread,
+        results: response.body.data.children,
+        subredditError: null,
+      })
+    }
   }
 
   render() {
@@ -134,7 +140,7 @@ class App extends React.Component {
           />
         <h3>Results</h3>
         <SearchResultList 
-          results={this.state.results} error={this.state.subredditError}
+          results={this.state.results} subredditError={this.state.subredditError}
         />
       </section>
     );
