@@ -85,7 +85,7 @@ class SearchResultList extends React.Component {
       {
       this.props.subredditError ?
         <div>
-          <h2>Error - r/{this.props.subredditError} not found, try another subreddit.</h2>
+          <h2>Error - r/{this.props.subredditSelected} not found, try another subreddit.</h2>
         </div>
         :
         undefined
@@ -135,7 +135,8 @@ class App extends React.Component {
           />
         <h3>Results</h3>
         <SearchResultList 
-          results={this.state.results} subredditError={this.state.subredditSelected}
+          results={this.state.results} subredditError={this.state.subredditError}
+          subredditSelected={this.state.subredditSelected}
         />
       </section>
     );
