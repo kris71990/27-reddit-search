@@ -14,7 +14,7 @@ webpackConfig.output = {
 
 webpackConfig.plugins = [
   new HtmlWebpackPlugin({
-    title: '401d23. If we can see this, you copy pasted.',
+    title: 'Reddit Search',
   }),
 ];
 
