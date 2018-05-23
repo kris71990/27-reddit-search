@@ -11,7 +11,6 @@ class SearchForm extends React.Component {
       subreddit: '',
       threads: '',
     };
-
     this.handleChangeSubreddit = this.handleChangeSubreddit.bind(this);
     this.handleChangeNumber = this.handleChangeNumber.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -70,22 +69,25 @@ class SearchResultList extends React.Component {
       <div>
       {
         this.props.results ?
-        <ul>
-          { this.props.results.map((item, index) => {
-            return (
-              <li key={index}>
-                <a href={item.data.url}>{item.data.url}</a>
-                <p>{item.data.title}</p>
-              </li>
-            );
-          })}
-        </ul>
+        <div>
+          <h3>Results</h3>
+          <ul>
+            { this.props.results.map((item, index) => {
+              return (
+                <li key={index}>
+                  <p>{item.data.title}</p>
+                  <a href={item.data.url}>{item.data.url}</a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       : undefined
       }
       {
       this.props.subredditError ?
         <div>
-          <h2>Error - r/{this.props.subredditError} not found, try another subreddit.</h2>
+          <h2>Error - r/{this.props.subredditSelected} not found, try another subreddit.</h2>
         </div>
         :
         undefined
@@ -94,7 +96,6 @@ class SearchResultList extends React.Component {
     );
   }
 }
-
 
 class App extends React.Component {
   constructor(props) {
@@ -133,9 +134,9 @@ class App extends React.Component {
         <SearchForm
           subredditSelect={this.subredditSelect}
           />
-        <h3>Results</h3>
         <SearchResultList 
-          results={this.state.results} subredditError={this.state.subredditSelected}
+          results={this.state.results} subredditError={this.state.subredditError}
+          subredditSelected={this.state.subredditSelected}
         />
       </section>
     );
