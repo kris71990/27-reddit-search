@@ -68,26 +68,35 @@ class SearchResultList extends React.Component {
   }
 
   render() {
-    return
-      (
+    return (
+      <div>
+      {
+        this.props.results ?
+        <ul>
+          { this.props.results.map((item, index) => {
+            return (
+              <li key={index}>
+                <a href={item.data.url}>{item.data.url}</a>
+                <p>{item.data.title}</p>
+              </li>
+            )
+          })}
+        </ul>
+      : undefined
+      }
+      {
+      this.props.subredditError ?
         <div>
-        {
-          !this.state.results ? 
-          <h1>error</h1> :
-          <ul>
-            { this.state.results.map((item, index) => {
-              return (
-                <li key={index}>
-                  <p>{item}</p>
-                </li>
-              )
-            })}
-          </ul>
-        }
+          <h2>Error, no results</h2>
         </div>
-      );
+        :
+        undefined
+      }
+      </div>
+    );
   }
 }
+
 
 class App extends React.Component {
   constructor(props) {
@@ -102,6 +111,12 @@ class App extends React.Component {
   }
 
   subredditSelect(response, subreddit, thread) {
+    if (!response) {
+      this.setState({
+        subredditError: true,
+      });
+    };
+
     this.setState({
       subredditSelected: subreddit,
       threadCount: thread,
@@ -110,18 +125,17 @@ class App extends React.Component {
     })
   }
 
-  renderResults() {
-
-  }
-
   render() {
     return (
       <section>
         <h1>Search Reddit</h1>
         <SearchForm
           subredditSelect={this.subredditSelect}
-        />
+          />
         <h3>Results</h3>
+        <SearchResultList 
+          results={this.state.results} error={this.state.subredditError}
+        />
       </section>
     );
   }
