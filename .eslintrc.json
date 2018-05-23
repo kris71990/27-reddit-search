@@ -1,21 +1,22 @@
 {
-  "extends": ["airbnb-base","plugin:jest/recommended", "plugin:react/recommended"],
+  "extends": ["airbnb-base","plugin:jest/recommended","plugin:react/recommended"],
   "env": {
     "browser": true
   },
   "parser": "babel-eslint",
-  "plugins": ["jest", "react"],
+  "plugins": ["jest","react"],
   "rules": {
     "arrow-body-style": "off",
+    "class-methods-use-this": "off",
     "global-require": "off",
     "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+    "linebreak-style": "off",
     "no-multi-assign": "off",
     "no-param-reassign": ["error", { "props": false }],
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
-    "no-underscore-dangle": "off",
     "no-trailing-spaces":"off",
-    "linebreak-style": "off",
-    "strict": "off",
-    "class-methods-use-this": "off"
+    "no-underscore-dangle": "off",
+    "react/prop-types": "off",
+    "strict": "off"
   }
 }
