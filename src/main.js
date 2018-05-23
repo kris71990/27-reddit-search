@@ -70,16 +70,19 @@ class SearchResultList extends React.Component {
       <div>
       {
         this.props.results ?
-        <ul>
-          { this.props.results.map((item, index) => {
-            return (
-              <li key={index}>
-                <a href={item.data.url}>{item.data.url}</a>
-                <p>{item.data.title}</p>
-              </li>
-            );
-          })}
-        </ul>
+        <div>
+          <h3>Results</h3>
+          <ul>
+            { this.props.results.map((item, index) => {
+              return (
+                <li key={index}>
+                  <a href={item.data.url}>{item.data.url}</a>
+                  <p>{item.data.title}</p>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       : undefined
       }
       {
@@ -133,7 +136,6 @@ class App extends React.Component {
         <SearchForm
           subredditSelect={this.subredditSelect}
           />
-        <h3>Results</h3>
         <SearchResultList 
           results={this.state.results} subredditError={this.state.subredditError}
           subredditSelected={this.state.subredditSelected}
